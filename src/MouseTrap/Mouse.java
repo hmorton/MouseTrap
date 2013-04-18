@@ -1,3 +1,4 @@
+package MouseTrap;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -9,7 +10,8 @@ public class Mouse {
 	private int xCoord, yCoord;
 	
 	public Mouse() {//Jpanel for mouse picture
-		// TODO Auto-generated constructor stub
+		board = new Board();
+		path = new ArrayList<BoardCell>();
 	}
 	
 	public void draw(Graphics g) {

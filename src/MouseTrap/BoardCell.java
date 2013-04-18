@@ -1,3 +1,4 @@
+package MouseTrap;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -31,6 +32,10 @@ public class BoardCell {
 	
 	public boolean containsMouse() {
 		return false;
+	}
+
+	public void setBlocked(boolean b) {
+		blocked = b;
 	}
 
 	
