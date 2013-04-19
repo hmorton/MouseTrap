@@ -14,10 +14,16 @@ public class Mouse {
 		path = new ArrayList<BoardCell>();
 	}
 	
+
+
 	public void draw(Graphics g) {
 		
 	}
 	
+
+
+
+
 	public void choosePath() {
 		
 	}
@@ -30,4 +36,8 @@ public class Mouse {
 		
 	}
 
+	public int getxCoord() {return xCoord;}
+	public int getyCoord() {return yCoord;}
+	public void setxCoord(int xCoord) {this.xCoord = xCoord;}
+	public void setyCoord(int yCoord) {this.yCoord = yCoord;}
 }

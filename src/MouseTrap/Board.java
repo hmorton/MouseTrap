@@ -18,6 +18,7 @@ public class Board {
 		// TODO Auto-generated constructor stub
 		boardCells = new ArrayList<BoardCell>();
 		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
+		calcAdj();
 	}
 	
 	
@@ -34,23 +35,8 @@ public class Board {
 	}
 
 
-	public static int getXsize() {
-		return XSIZE;
-	}
-
-
-	public static int getYsize() {
-		return YSIZE;
-	}
-
-
-	public ArrayList<BoardCell> getBoardCells() {
-		return boardCells;
-	}
-
-
-	public Map<Integer, LinkedList<Integer>> getAdjMatrix() {
-		return adjMatrix;
-	}
-
+	public static int getXsize() {return XSIZE;}
+	public static int getYsize() {return YSIZE;}
+	public ArrayList<BoardCell> getBoardCells() {return boardCells;}
+	public Map<Integer, LinkedList<Integer>> getAdjMatrix() {return adjMatrix;}
 }

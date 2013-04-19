@@ -14,35 +14,50 @@ import MouseTrap.*;
 //some needed lists and/or maps have not been initialized yet
 
 public class MouseTest {
-	Game game;
-	Board b;
+	Game testGame;
+	// Board b;  //should be automatically created when game constructor called
 
 	@Before
 	public void setup() {
-		game = new Game();
-		b = new Board();
+		testGame = new Game();
+	//	b = new Board(); //should be automatically created when game constructor called
+	}
+	
+	@Test
+	public void testBoardSize()
+	{
+		assertEquals(testGame.board.getXsize(),20);
+		assertEquals(testGame.board.getYsize(),20);
+		assertEquals(testGame.board.getBoardCells().size(),400);
+	}
+	
+	@Test
+	public void testMouseInitialization()
+	{
+		assertEquals(testGame.mouse.getxCoord(),10); //don't know board size might need to be changed (!!!!!!)
+		assertEquals(testGame.mouse.getyCoord(),10);  
 	}
 	
 	@Test
 	public void testAdjacencies() {
-		b.calcAdj();
-		Map<Integer, LinkedList<Integer>> testMap = b.getAdjMatrix();
+		//b.calcAdj();  		Handled when game constructor calls board constructor (after every human turn also?)
+		//Map<Integer, LinkedList<Integer>> testMap = b.getAdjMatrix();
 		
 		//testing for the upper left hand corner
-		LinkedList<Integer> testList = testMap.get(0);
+		LinkedList<Integer> testList = testGame.board.getAdjMatrix().get(0);
 		assertTrue(testList.contains(1));
 		assertTrue(testList.contains(20));
 		assertTrue(testList.size() == 2);
 		
 		//test on the right hand side
-		testList = testMap.get(39);
+		testList = testGame.board.getAdjMatrix().get(39);
 		assertTrue(testList.contains(19));
 		assertTrue(testList.contains(38));
 		assertTrue(testList.contains(59));
 		assertTrue(testList.size() == 3);
 		
 		//test with an adjacency on all sides
-		testList = testMap.get(365);
+		testList = testGame.board.getAdjMatrix().get(365);
 		assertTrue(testList.contains(345));
 		assertTrue(testList.contains(385));
 		assertTrue(testList.contains(366));
@@ -51,27 +66,10 @@ public class MouseTest {
 	}
 	
 	@Test
-	public void testCalcIndex() {
-		int testRow, testCol, testIndex;
-		
-		//test somewhere that is not on an edge
-		testRow = 3;
-		testCol = 7;
-		testIndex = 67;
-		assertEquals(testIndex, b.calcIndex(testRow, testCol));
-		
-		//test on an edge
-		testRow = 0;
-		testCol = 10;
-		testIndex = 10;
-		assertEquals(testIndex, b.calcIndex(testRow, testCol));
-	}
-	
-	@Test
 	public void testAdjWithPillar() {
-		b.calcAdj();
-		Map<Integer, LinkedList<Integer>> testMap = b.getAdjMatrix();
-		ArrayList<BoardCell> testCellList = b.getBoardCells();
+		//b.calcAdj();		Handled when game constructor calls board constructor
+		Map<Integer, LinkedList<Integer>> testMap = testGame.board.getAdjMatrix();
+		ArrayList<BoardCell> testCellList = testGame.board.getBoardCells();
 		
 		//test somewhere in the middle of the board with one blocked cell
 		LinkedList<Integer> testList = testMap.get(44);
@@ -107,4 +105,54 @@ public class MouseTest {
 		assertEquals(testList.size(), 0);
 	}
 	
+	@Test
+	public void testCalcIndex() {
+		int testRow, testCol, testIndex;
+		
+		//test somewhere that is not on an edge
+		testRow = 3;
+		testCol = 7;
+		testIndex = 67;
+		assertEquals(testIndex, testGame.board.calcIndex(testRow, testCol));
+		
+		//test on an edge
+		testRow = 0;
+		testCol = 10;
+		testIndex = 10;
+		assertEquals(testIndex, testGame.board.calcIndex(testRow, testCol));
+	}
+	
+
+	
+	@Test
+	public void testMouseMovement()
+	{
+		testGame.mouse.setxCoord(50);
+		testGame.mouse.setyCoord(50);
+		testGame.mouseTurn();
+		assertTrue(
+				(testGame.mouse.getxCoord()==49&&testGame.mouse.getyCoord()==50)
+				||
+				(testGame.mouse.getxCoord()==51&&testGame.mouse.getyCoord()==50)
+				||
+				(testGame.mouse.getxCoord()==50&&testGame.mouse.getyCoord()==49)
+				||
+				(testGame.mouse.getxCoord()==50&&testGame.mouse.getyCoord()==51)
+				);
+	}
+	
+
+	
+	@Test
+	public void testSetBlock()
+	{
+		testGame.setTileBlocked(9);
+		assertTrue(testGame.board.getBoardCells().get(9).getBlocked());
+		
+		testGame.setTileBlocked(18);
+		assertTrue(testGame.board.getBoardCells().get(18).getBlocked());
+		
+		testGame.setTileBlocked(18);
+		assertTrue(testGame.board.getBoardCells().get(18).getBlocked());
+	}
 }

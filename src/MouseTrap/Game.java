@@ -1,8 +1,8 @@
 package MouseTrap;
 
 public class Game {// JFrame running the game
-	private Board board;
-	private Mouse mouse;
+	public Board board;
+	public Mouse mouse;
 	private int score;
 
 	public Game() {
@@ -16,15 +16,17 @@ public class Game {// JFrame running the game
 	}
 	
 	public void humanTurn() {
-		
+		//get input
+		//call setTileBlocked
 	}
 	
 	public void mouseTurn() {
-		
 	}
 	
 	public void decrementScore() {
-		
+	}
+	
+	public void setTileBlocked(int index) {
 	}
 
 }
