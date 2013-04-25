@@ -18,7 +18,14 @@ public class Board {
 		// TODO Auto-generated constructor stub
 		boardCells = new ArrayList<BoardCell>();
 		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
+		setUpBoardCells();
 		calcAdj();
+	}
+	
+	public void setUpBoardCells() {
+		for(int i = 0; i < XSIZE * YSIZE; i++) {
+			boardCells.add(new BoardCell());
+		}
 	}
 	
 	

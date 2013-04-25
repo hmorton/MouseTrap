@@ -131,13 +131,13 @@ public class MouseTest {
 		testGame.mouse.setyCoord(50);
 		testGame.mouseTurn();
 		assertTrue(
-				(testGame.mouse.getxCoord()==49&&testGame.mouse.getyCoord()==50)
+				(testGame.mouse.getxCoord()==49 && testGame.mouse.getyCoord()==50)
 				||
-				(testGame.mouse.getxCoord()==51&&testGame.mouse.getyCoord()==50)
+				(testGame.mouse.getxCoord()==51 && testGame.mouse.getyCoord()==50)
 				||
-				(testGame.mouse.getxCoord()==50&&testGame.mouse.getyCoord()==49)
+				(testGame.mouse.getxCoord()==50 && testGame.mouse.getyCoord()==49)
 				||
-				(testGame.mouse.getxCoord()==50&&testGame.mouse.getyCoord()==51)
+				(testGame.mouse.getxCoord()==50 && testGame.mouse.getyCoord()==51)
 				);
 	}
 	

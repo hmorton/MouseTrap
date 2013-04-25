@@ -21,12 +21,14 @@ public class Game {// JFrame running the game
 	}
 	
 	public void mouseTurn() {
+		mouse.move();
 	}
 	
 	public void decrementScore() {
 	}
 	
 	public void setTileBlocked(int index) {
+		board.getBoardCells().get(index).setBlocked(true);
 	}
 
 }
