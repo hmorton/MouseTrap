@@ -20,6 +20,7 @@ public class MouseTest {
 	@Before
 	public void setup() {
 		testGame = new Game();
+		
 	//	b = new Board(); //should be automatically created when game constructor called
 	}
 	
@@ -72,19 +73,23 @@ public class MouseTest {
 		ArrayList<BoardCell> testCellList = testGame.board.getBoardCells();
 		
 		//test somewhere in the middle of the board with one blocked cell
-		LinkedList<Integer> testList = testMap.get(44);
+		
 		BoardCell blockedCell = testCellList.get(45);
 		blockedCell.setBlocked(true);
-		
+		testGame.board.calcAdj();
+		LinkedList<Integer> testList = testGame.board.getAdjMatrix().get(44);
+		System.out.println(testGame.board.getBoardCells().get(45).getBlocked());
 		assertTrue(testList.contains(43));
 		assertTrue(testList.contains(24));
 		assertTrue(testList.contains(64));
 		assertEquals(testList.size(), 3);
 		
 		//test somewhere near an edge with the edge cell blocked off
-		testList = testMap.get(81);
+		
 		blockedCell = testCellList.get(80);
 		blockedCell.setBlocked(true);
+		testGame.board.calcAdj();
+		testList = testGame.board.getAdjMatrix().get(81);
 		
 		assertTrue(testList.contains(61));
 		assertTrue(testList.contains(101));
@@ -92,16 +97,22 @@ public class MouseTest {
 		assertEquals(testList.size(), 3);
 		
 		//test somewhere that has every possible adjacency blocked off
-		testList = testMap.get(135);
+		
 		blockedCell = testCellList.get(134);
 		blockedCell.setBlocked(true);
 		blockedCell = testCellList.get(136);
 		blockedCell.setBlocked(true);
-		blockedCell = testCellList.get(114);
+		blockedCell = testCellList.get(115);
 		blockedCell.setBlocked(true);
-		blockedCell = testCellList.get(154);
+		blockedCell = testCellList.get(155);
 		blockedCell.setBlocked(true);
 		
+		testGame.board.calcAdj();
+		testList = testGame.board.getAdjMatrix().get(135);
+		//System.out.println(testList.size());
+		for(Integer i : testList) {
+			System.out.print(i + " ");
+		}
 		assertEquals(testList.size(), 0);
 	}
 	
@@ -113,13 +124,13 @@ public class MouseTest {
 		testRow = 3;
 		testCol = 7;
 		testIndex = 67;
-		assertEquals(testIndex, testGame.board.calcIndex(testRow, testCol));
+		assertEquals(testIndex, testGame.board.calcIndex(testCol, testRow));
 		
 		//test on an edge
 		testRow = 0;
 		testCol = 10;
 		testIndex = 10;
-		assertEquals(testIndex, testGame.board.calcIndex(testRow, testCol));
+		assertEquals(testIndex, testGame.board.calcIndex(testCol, testRow));
 	}
 	
 

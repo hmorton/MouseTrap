@@ -11,7 +11,12 @@ public class BoardCell {
 	
 	
 	public BoardCell() {
-		// TODO Auto-generated constructor stub
+	}
+	
+	public BoardCell(int index) {
+		this.index = index;
+		xCoord = index/20;
+		yCoord = index%20;
 	}
 	
 	public void draw(Graphics g){
@@ -20,10 +25,6 @@ public class BoardCell {
 	
 	public boolean getBlocked() {
 		return blocked;
-	}
-	
-	public int calcIndex(int xCoord, int yCoord) {
-		return 0;
 	}
 	
 	public boolean containsClick(int xCoord, int yCoord) {
@@ -36,6 +37,18 @@ public class BoardCell {
 
 	public void setBlocked(boolean b) {
 		blocked = b;
+	}
+	
+	public int getxCoord() {
+		return xCoord;
+	}
+
+	public int getyCoord() {
+		return yCoord;
+	}
+	
+	public int calcIndex() {
+		return xCoord + 20*yCoord;
 	}
 
 	

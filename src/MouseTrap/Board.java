@@ -24,7 +24,7 @@ public class Board {
 	
 	public void setUpBoardCells() {
 		for(int i = 0; i < XSIZE * YSIZE; i++) {
-			boardCells.add(new BoardCell());
+			boardCells.add(new BoardCell(i));
 		}
 	}
 	
@@ -33,12 +33,42 @@ public class Board {
 		
 	}
 	
-	public int calcIndex(int row, int col) {
-		return 0;
+	public int calcIndex(int xCoord, int yCoord) {
+		return yCoord*20 + xCoord;
 	}
 	
 	public void calcAdj() {
-		
+		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
+		for(BoardCell b : boardCells){
+			LinkedList<Integer> tempList = new LinkedList<Integer>();
+			int index = b.calcIndex();
+			if (b.getxCoord()-1 >= 0) {
+				int xMinus1 = calcIndex(b.getxCoord()-1, b.getyCoord());
+				if(!boardCells.get(xMinus1).getBlocked()){
+					tempList.add(xMinus1);
+				}
+			}
+			if (b.getyCoord()-1 >= 0) {
+				int yMinus1 = calcIndex(b.getxCoord(), b.getyCoord()-1);
+				if(!boardCells.get(yMinus1).getBlocked()){
+					tempList.add(yMinus1);
+				}
+			}
+			if (b.getxCoord()+1 < XSIZE) {
+				int xPlus1 = calcIndex(b.getxCoord()+1, b.getyCoord());
+			//	System.out.println("xPlus1 is: " + xPlus1);
+				if(!boardCells.get(xPlus1).getBlocked()){
+					tempList.add(xPlus1);
+				}
+			}
+			if (b.getyCoord()+1 < YSIZE) {
+				int yPlus1 = calcIndex(b.getxCoord(), b.getyCoord()+1);
+				if(!boardCells.get(yPlus1).getBlocked()){
+					tempList.add(yPlus1);
+				}
+			}
+			adjMatrix.put(index, tempList);
+		}
 	}
 
 
