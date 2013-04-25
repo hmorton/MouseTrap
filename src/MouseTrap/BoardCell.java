@@ -5,8 +5,9 @@ import java.awt.Graphics;
 
 public class BoardCell {
 //boolean to show type whether wall or open
+	static final int CELLSIZE=30;
 	private int xCoord, yCoord, index;
-	private Color color;
+	private Color color=Color.YELLOW;
 	private boolean containsMouse, blocked, isEdge;
 	
 	
@@ -19,8 +20,12 @@ public class BoardCell {
 		yCoord = index%20;
 	}
 	
-	public void draw(Graphics g){
-		
+	void draw(Graphics g) {
+		g.setColor(color);
+	    g.fillRect (CELLSIZE*xCoord,CELLSIZE*yCoord,CELLSIZE,CELLSIZE);
+	    
+	    g.setColor(Color.BLACK);
+	    g.drawRect (CELLSIZE*xCoord,CELLSIZE*yCoord,CELLSIZE,CELLSIZE);
 	}
 	
 	public boolean getBlocked() {

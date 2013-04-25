@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import javax.swing.JPanel;
 
-public class Board {
+
+public class Board extends JPanel {
 
 	private static final int XSIZE = 20;
 	private static final int YSIZE = 20;
@@ -15,22 +17,29 @@ public class Board {
 	
 	
 	public Board() {
-		// TODO Auto-generated constructor stub
 		boardCells = new ArrayList<BoardCell>();
 		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
 		setUpBoardCells();
 		calcAdj();
 	}
 	
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		for (BoardCell cell : boardCells)
+		{
+			cell.draw(g);
+		}
+		
+//		for(Player value: players.values()){
+//			value.draw(g);
+//		}			
+	}
+	
 	public void setUpBoardCells() {
 		for(int i = 0; i < XSIZE * YSIZE; i++) {
 			boardCells.add(new BoardCell(i));
 		}
-	}
-	
-	
-	public void paintComponent(Graphics g) {
-		
 	}
 	
 	public int calcIndex(int xCoord, int yCoord) {

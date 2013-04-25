@@ -1,14 +1,24 @@
 package MouseTrap;
 
-public class Game {// JFrame running the game
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+
+public class Game extends JFrame{
 	public Board board;
 	public Mouse mouse;
 	private int score;
 
-	public Game() {
+	public Game(){
 		// TODO Auto-generated constructor stub
 		board  = new Board();
 		mouse = new Mouse(board.getXsize()/2, board.getYsize()/2);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Mouse Trap!!");
+		setSize(620,640);
+		
+		add(board,BorderLayout.CENTER);
 	}
 	
 	public void endGame() {
@@ -29,6 +39,11 @@ public class Game {// JFrame running the game
 	
 	public void setTileBlocked(int index) {
 		board.getBoardCells().get(index).setBlocked(true);
+	}
+	
+	public static void main(String[] args) {
+		Game newGame = new Game();
+		newGame.setVisible(true);
 	}
 
 }

@@ -24,18 +24,26 @@ public class Mouse {
 	public void draw(Graphics g) {
 		
 	}
-	
-
-
 
 
 	public void choosePath() {
 		
 	}
-	
+	/////////////////////////
 	public void chooseTarget() {
-		
+		BoardCell potentialMove = new BoardCell();
+		potentialMove = path.get(0);
+		if (potentialMove.getBlocked()==true)
+		{
+			choosePath();
+		}
+		else
+		{
+			xCoord=potentialMove.getxCoord();
+			yCoord=potentialMove.getyCoord();
+		}
 	}
+	//////////////////////////
 	
 	public void move(int xCoord, int yCoord) {
 		this.xCoord = xCoord;
