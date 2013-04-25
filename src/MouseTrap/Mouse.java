@@ -19,7 +19,7 @@ public class Mouse {
 		this.yCoord = yCoord;
 	}
 	
-
+	
 
 	public void draw(Graphics g) {
 		
@@ -37,8 +37,9 @@ public class Mouse {
 		
 	}
 	
-	public void move() {
-		
+	public void move(int xCoord, int yCoord) {
+		this.xCoord = xCoord;
+		this.yCoord = yCoord;
 	}
 
 	public int getxCoord() {return xCoord;}

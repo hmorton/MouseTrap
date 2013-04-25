@@ -140,7 +140,7 @@ public class MouseTest {
 	{
 		testGame.mouse.setxCoord(50);
 		testGame.mouse.setyCoord(50);
-		testGame.mouseTurn();
+		testGame.mouse.move(49,50);
 		assertTrue(
 				(testGame.mouse.getxCoord()==49 && testGame.mouse.getyCoord()==50)
 				||

@@ -21,7 +21,7 @@ public class Game {// JFrame running the game
 	}
 	
 	public void mouseTurn() {
-		mouse.move();
+		//mouse.move();
 	}
 	
 	public void decrementScore() {
