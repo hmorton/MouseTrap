@@ -8,7 +8,7 @@ public class Game {// JFrame running the game
 	public Game() {
 		// TODO Auto-generated constructor stub
 		board  = new Board();
-		mouse = new Mouse();
+		mouse = new Mouse(board.getXsize()/2, board.getYsize()/2);
 	}
 	
 	public void endGame() {

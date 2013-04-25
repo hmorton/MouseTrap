@@ -14,6 +14,11 @@ public class Mouse {
 		path = new ArrayList<BoardCell>();
 	}
 	
+	public Mouse(int xCoord, int yCoord) {
+		this.xCoord = xCoord;
+		this.yCoord = yCoord;
+	}
+	
 
 
 	public void draw(Graphics g) {
