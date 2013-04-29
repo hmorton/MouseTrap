@@ -1,5 +1,9 @@
 package MouseTrap;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,13 +18,20 @@ public class Board extends JPanel {
 	private static final int YSIZE = 20;
 	private ArrayList<BoardCell> boardCells;
 	private Map<Integer, LinkedList<Integer>> adjMatrix;
+	//public MousePic mouse;
+	public Mouse mouse;
 	
 	
 	public Board() {
+		
+		mouse = new Mouse();
+		
 		boardCells = new ArrayList<BoardCell>();
 		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
 		setUpBoardCells();
 		calcAdj();
+		
+		addMouseListener(new BoardListener());
 	}
 	
 	public void paintComponent(Graphics g)
@@ -30,6 +41,13 @@ public class Board extends JPanel {
 		{
 			cell.draw(g);
 		}
+		
+		mouse.draw(g);
+//		mouse.setX(50);
+//		mouse.setY(60);
+		repaint();
+		mouse.revalidate();
+		
 		
 //		for(Player value: players.values()){
 //			value.draw(g);
@@ -85,4 +103,40 @@ public class Board extends JPanel {
 	public static int getYsize() {return YSIZE;}
 	public ArrayList<BoardCell> getBoardCells() {return boardCells;}
 	public Map<Integer, LinkedList<Integer>> getAdjMatrix() {return adjMatrix;}
+
+	class BoardListener implements MouseListener{
+
+		@Override
+		public void mouseClicked(MouseEvent e) {	
+			for(BoardCell b: boardCells){
+				if(b.containsClick(e.getX(), e.getY()) ){
+					if(b.getxCoord()!= mouse.getxCoord() || b.getyCoord() != mouse.getyCoord()){
+						b.setBlocked(true);
+						//mouse.pathFinder();
+
+					}
+
+				}
+			}
+			repaint();
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {	}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {}
+
+
+
+	}
 }
+
+	

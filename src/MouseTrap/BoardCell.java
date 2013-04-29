@@ -1,6 +1,8 @@
 package MouseTrap;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 
 public class BoardCell {
@@ -8,7 +10,7 @@ public class BoardCell {
 	static final int CELLSIZE=30;
 	private int xCoord, yCoord, index;
 	private Color color=Color.YELLOW;
-	private boolean containsMouse, blocked, isEdge;
+	private boolean containsMouse=false, blocked = false, isEdge = false;
 	
 	
 	public BoardCell() {
@@ -19,9 +21,15 @@ public class BoardCell {
 		xCoord = index/20;
 		yCoord = index%20;
 	}
-	
+
 	void draw(Graphics g) {
-		g.setColor(color);
+//		if(blocked){
+//			g.setColor(Color.DARK_GRAY);
+//		}else{
+			g.setColor(color);
+//		}
+			
+		
 	    g.fillRect (CELLSIZE*xCoord,CELLSIZE*yCoord,CELLSIZE,CELLSIZE);
 	    
 	    g.setColor(Color.BLACK);
@@ -32,8 +40,13 @@ public class BoardCell {
 		return blocked;
 	}
 	
-	public boolean containsClick(int xCoord, int yCoord) {
-		return false;
+	public boolean containsClick(int mouseX, int mouseY) {
+		Rectangle rect = new Rectangle(CELLSIZE*xCoord,CELLSIZE*yCoord,CELLSIZE,CELLSIZE);
+		if (rect.contains(new Point(mouseX, mouseY))) {
+		return true;
+		}else return false;
+		// return true;
+		
 	}
 	
 	public boolean containsMouse() {
@@ -42,6 +55,9 @@ public class BoardCell {
 
 	public void setBlocked(boolean b) {
 		blocked = b;
+		if(b){
+			color = Color.DARK_GRAY;
+		}
 	}
 	
 	public int getxCoord() {

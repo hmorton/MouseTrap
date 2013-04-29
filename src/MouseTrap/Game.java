@@ -1,24 +1,32 @@
+
 package MouseTrap;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
 public class Game extends JFrame{
-	public Board board;
-	public Mouse mouse;
+	public static Board board;
+	
 	private int score;
 
 	public Game(){
 		// TODO Auto-generated constructor stub
-		board  = new Board();
-		mouse = new Mouse(board.getXsize()/2, board.getYsize()/2);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Mouse Trap!!");
 		setSize(620,640);
 		
+		board  = new Board();
+		//mouse = new Mouse(board.getXsize()/2, board.getYsize()/2);
+		
 		add(board,BorderLayout.CENTER);
+//		validate();
+//		repaint();
+//		setMinimumSize(new Dimension(620, 640));
+//		pack();
+		
 	}
 	
 	public void endGame() {
