@@ -18,11 +18,22 @@ public class Board extends JPanel {
 	private static final int YSIZE = 20;
 	private ArrayList<BoardCell> boardCells;
 	private Map<Integer, LinkedList<Integer>> adjMatrix;
+	private Game game;
 	//public MousePic mouse;
 	public Mouse mouse;
 	
 	
 	public Board() {
+		mouse = new Mouse();
+		boardCells = new ArrayList<BoardCell>();
+		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
+		setUpBoardCells();
+		calcAdj();
+		addMouseListener(new BoardListener());
+	}
+	
+	public Board(Game game) {
+		this.game = game;
 		mouse = new Mouse();
 		boardCells = new ArrayList<BoardCell>();
 		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
@@ -107,11 +118,11 @@ public class Board extends JPanel {
 		public void mouseClicked(MouseEvent e) {	
 			for(BoardCell b: boardCells){
 				if(b.containsClick(e.getX(), e.getY()) ){
-					System.out.println("you clicked on: " + b.getxCoord() + " " + b.getyCoord());
+			//		System.out.println("you clicked on: " + b.getxCoord() + " " + b.getyCoord());
 					if((b.getxCoord()!= mouse.getxCoord() || b.getyCoord() != mouse.getyCoord()) && !b.getBlocked()){
 						b.setBlocked(true);
 						calcAdj();
-						mouse.pathFinder();
+						game.pathFinder();
 						repaint();
 					}
 				}

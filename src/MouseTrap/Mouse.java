@@ -57,18 +57,18 @@ public class Mouse extends JPanel{
 		dfLeft = (int)Math.pow((20 - xCoord),5) + dfBot;
 		dfRight = (int)Math.pow((20 -(Game.board.getXsize() - xCoord)),5) +dfLeft;
 		Random randNums = new Random();
-		System.out.println("dfRight is: " + dfRight);
+	//	System.out.println("dfRight is: " + dfRight);
 		int randInt = randNums.nextInt(dfRight);
 		boolean done = false;
 		if(randInt < dfTop){
-			System.out.println("I want to move up!" + (xCoord) + " " + (yCoord-1));
+	//		System.out.println("I want to move up!" + (xCoord) + " " + (yCoord-1));
 			if(!Game.board.getBoardCells().get(calcIndex(xCoord, yCoord-1)).getBlocked()){
 				done = true;
 				move(xCoord,yCoord-1);
 			}
 		}
 		else if(randInt < dfBot){
-			System.out.println("I want to move down!" + (xCoord) + " " + (yCoord+1));
+//			System.out.println("I want to move down!" + (xCoord) + " " + (yCoord+1));
 			if(!Game.board.getBoardCells().get(calcIndex(xCoord, yCoord+1)).getBlocked()){
 				done = true;
 				move(xCoord,yCoord+1);
@@ -77,7 +77,7 @@ public class Mouse extends JPanel{
 
 		}
 		else if (randInt < dfLeft){
-			System.out.println("I want to move left!" + (xCoord-1) + " " + (yCoord));
+	//		System.out.println("I want to move left!" + (xCoord-1) + " " + (yCoord));
 			if(!Game.board.getBoardCells().get(calcIndex(xCoord - 1, yCoord)).getBlocked()){
 				done = true;
 				move(xCoord - 1,yCoord);
@@ -87,7 +87,7 @@ public class Mouse extends JPanel{
 
 		}
 		else if (randInt < dfRight){
-			System.out.println("I want to move right!" + (xCoord+1) + " " + (yCoord));
+	//		System.out.println("I want to move right!" + (xCoord+1) + " " + (yCoord));
 			if(!Game.board.getBoardCells().get(calcIndex(xCoord+ 1, yCoord)).getBlocked()){
 				done = true;
 				move(xCoord + 1,yCoord);
@@ -96,26 +96,10 @@ public class Mouse extends JPanel{
 
 		}
 		if(!done){
-			System.out.println("I've been blocked!");
 			selectLocation();
 		}
 
 
-	}
-
-
-	public void pathFinder() {
-		if(xCoord == 0||yCoord == 0||xCoord == Board.getXsize()-1||yCoord == Board.getYsize()-1)
-		{
-			Game.endGame(false);
-		}
-		else
-		{
-			if(Game.board.getAdjMatrix().get(calcIndex(xCoord,yCoord)).size() == 0) {
-				Game.endGame(true);
-			} else
-				selectLocation();
-		}
 	}
 
 
