@@ -13,8 +13,7 @@ public class BoardCell {
 	private boolean containsMouse=false, blocked = false, isEdge = false;
 	
 	
-	public BoardCell() {
-	}
+	//public BoardCell() {}
 	
 	public BoardCell(int index) {
 		this.index = index;

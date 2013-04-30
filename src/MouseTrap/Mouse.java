@@ -10,35 +10,34 @@ import javax.swing.JPanel;
 
 
 public class Mouse extends JPanel{
-	
-	private Board board;
+
 	private ArrayList<BoardCell> path;
 
-	
 	private ImageIcon icon;
 	private Image pic;
-	
+
 	private int xCoord, yCoord;
 	private int shortestPathLength;
-	static final int PATHLENGTHTOLERANCE = 2;	//difference between path length and smallest path length
+	static final int PATHLENGTHTOLERANCE = 3;	//difference between path length and smallest path length
 	private boolean[] visited;
 	LinkedList<LinkedList<Integer>> potentialPaths;
 
 	public Mouse() {//Jpanel for mouse picture
 		//	path = new ArrayList<BoardCell>();
 		potentialPaths = new LinkedList<LinkedList<Integer>>();
-		 xCoord = 10-1;
-		 yCoord = 10-1;
+		xCoord = 10-1;
+		yCoord = 10-1;
 		icon = createImageIcon("/MouseTrap/image/mouse.gif");
 		pic = icon.getImage().getScaledInstance(45, 45, java.awt.Image.SCALE_SMOOTH);
 		revalidate();
 		repaint();
+		visited = new boolean[Game.board.getXsize()*Game.board.getYsize()];
 	}
 
 	public Mouse(int xCoord, int yCoord) {
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
-		
+
 		icon = createImageIcon("/MouseTrap/image/mouse.gif");
 		pic = icon.getImage().getScaledInstance(45, 45, java.awt.Image.SCALE_SMOOTH);
 		revalidate();
@@ -57,67 +56,110 @@ public class Mouse extends JPanel{
 		}
 		else
 		{
-		potentialPaths.clear();									//delete any previous potential paths
-		calcPathInitializer(calcIndex(xCoord,yCoord));			//call function to generate potential paths using calc index to convert coords
-		LinkedList<Integer> chosenPath=chooseFromPaths();		//call function to pick the best path from potential paths
-		move(chosenPath.getFirst()/20,chosenPath.getFirst()%20);//move to first position of chosen path
+			potentialPaths.clear();									//delete any previous potential paths
+			potentialPaths = new LinkedList<LinkedList<Integer>>();
+			calcPathInitializer(calcIndex(xCoord,yCoord));			//call function to generate potential paths using calc index to convert coords
+			LinkedList<Integer> chosenPath=new LinkedList<Integer>();
+			chosenPath = chooseFromPaths();		//call function to pick the best path from potential paths
+			move(chosenPath.getFirst()%20,chosenPath.getFirst()/20);//move to first position of chosen path
 		}
 	}
-	
-	private void calcPathInitializer(int startLocation) {
+
+	private void calcPathInitializer(Integer startIndex) {
+		//System.out.println(xCoord+"   "+yCoord);
 		for (int i = 0; i < Board.getXsize()*Board.getYsize(); i++) {
 			visited[i] = false;
 		}
-		LinkedList<Integer> posibleMoves = new LinkedList<Integer>();
+		shortestPathLength=1000;
 		LinkedList<Integer> path = new LinkedList<Integer>();
-		visited[startLocation] = true;
-		posibleMoves = Game.board.getAdjMatrix().get(startLocation);
-		calcPathRecursive(path, posibleMoves);
+		visited[startIndex] = true;
+		LinkedList<Integer> possibleMoves = Game.board.getAdjMatrix().get(startIndex);
+		calcPathRecursive(path, possibleMoves);
 	}
 
-	private void calcPathRecursive(LinkedList<Integer> path,LinkedList<Integer> posibleMoves) {
-		for (int curCell : posibleMoves) {
-			if (visited[curCell] == false) 
+	private void calcPathRecursive(LinkedList<Integer> path,LinkedList<Integer> possibleMoves) {
+		//System.out.println("rec1");
+		//System.out.println("Current # of pos moves:" + possibleMoves.size());
+		for (int i=0;i<possibleMoves.size();i++)
+		{
+			//System.out.println("current pos in possible moves:" + i);
+			//System.out.println("possible move location:" + possibleMoves.get(i));
+			if (visited[possibleMoves.get(i)] == false) 
 			{
-				visited[curCell] = true;
-				path.addLast(curCell);
-
-				if(Game.board.getBoardCells().get(curCell).getxCoord() == 0			//if one of the border cells ie trigger condition
-						||Game.board.getBoardCells().get(curCell).getyCoord() == 0
-						||Game.board.getBoardCells().get(curCell).getxCoord() == Board.getXsize()-1
-						||Game.board.getBoardCells().get(curCell).getyCoord() == Board.getYsize()-1)
+				visited[possibleMoves.get(i)] = true;
+				path.addLast(possibleMoves.get(i));
+				//System.out.println("Current Path Size: "+ path.size());
+				if(xFromIndex(possibleMoves.get(i))==0								//if one of the border cells ie trigger condition
+						||yFromIndex(possibleMoves.get(i))==0
+						||xFromIndex(possibleMoves.get(i))==Board.getXsize()-1
+						||yFromIndex(possibleMoves.get(i))==Board.getYsize()-1)	
 				{
 					if(path.size()<shortestPathLength)								//check if path is shorter than current shortest path
 					{
-						potentialPaths.add(path);									//add the path to potential paths
-						for(LinkedList<Integer> i : potentialPaths)					//check through the previously stored paths and delete all that are now obsolete
+						shortestPathLength=path.size();
+						System.out.println("adding smallest path of size:" + path.size());
+						System.out.println("path values");
+						for (Integer e:path)
 						{
-							if(i.size() > shortestPathLength + PATHLENGTHTOLERANCE)	//checking if old paths are larger than smallest + our acceptable difference
+							System.out.println(e);
+						}
+						potentialPaths.add(path);									//add the path to potential paths
+						for(LinkedList<Integer> tempPath : potentialPaths)					//check through the previously stored paths and delete all that are now obsolete
+						{
+							if(tempPath.size() > (shortestPathLength + PATHLENGTHTOLERANCE))	//checking if old paths are larger than smallest + our acceptable difference
 							{
-								potentialPaths.remove(i);							//deleting paths that are no longer short enough
+								potentialPaths.remove(tempPath);							//deleting paths that are no longer short enough
 							}
 						}
 					}
 					else															//else only if path is longer than current shortest
 					{
-						if(path.size() <shortestPathLength + PATHLENGTHTOLERANCE)   //check if within tolerance to be added to potentials and add
+						if(path.size()<(shortestPathLength + PATHLENGTHTOLERANCE))   //check if within tolerance to be added to potentials and add
 						{
+							System.out.println("adding path of size:" + path.size());
 							potentialPaths.add(path);
+							System.out.println("path values");
+							for (Integer e:path)
+							{
+								System.out.println(e);
+							}
 						}															//if not within tolerance then it is ignored and not added to potential paths
 					}
 				}
 				else																//if not at trigger condition
 				{
-					calcPathRecursive(path, Game.board.getAdjMatrix().get(curCell));//call recursive function by passing in path and adjacency matrix of current location	
+			//		System.out.println("adj index rec location: " + possibleMoves.get(i));\
+					
+					calcPathRecursive(path, Game.board.getAdjMatrix().get(possibleMoves.get(i)));//call recursive function by passing in path and adjacency matrix of current location	
+			//		System.out.println("remove loc");
+					
 				}
-				path.removeLast();			//resets as it cascades out
-				visited[curCell] = false;	//resets as it cascades out
+				path.removeLast();	//resets as it cascades out
+				visited[i] = false;	//resets as it cascades out
 			}
 		}
+
 	}
-	
+
+
 	private LinkedList<Integer> chooseFromPaths ()		// goes through the potential paths and picks one that is the most "open"
 	{
+		System.out.println("In choose function!");
+		for (int i=0;i<potentialPaths.size();i++)
+		{
+			System.out.println("Potential Paths is not 0!");
+			//System.out.println("# of Potential Paths:" + potentialPaths.size());
+			//System.out.println("Potential Path #:" + i);
+			//System.out.println("size of element"+potentialPaths.get(i).size());
+			for (int j=0; j<potentialPaths.get(i).size();j++)
+			{
+				System.out.println(potentialPaths.get(i).size());
+				System.out.println("Loc in Potential Path:" + j);
+				System.out.println("Potential Path Loc Value:" + potentialPaths.get(i).get(j));
+			}
+			
+		}
+		/*
 		int largestGap = 0;								//Gap is the smallest opening that is in a path, largestGap is the largest gap that any path in potential paths has
 		for (LinkedList<Integer> e: potentialPaths)		//first loop finds the largest gap present in all potential paths
 		{
@@ -126,7 +168,7 @@ public class Mouse extends JPanel{
 				largestGap=gapFinder(e);
 			}
 		}
-		
+
 		for (LinkedList<Integer> e: potentialPaths)		//second loop removes all paths that have smaller "gaps" than the largest gap path
 		{
 			if(gapFinder (e)<largestGap)
@@ -134,12 +176,12 @@ public class Mouse extends JPanel{
 				potentialPaths.remove(e);
 			}
 		}
-		
+		*/
 		Random randomGenerator = new Random();			//randomly chooses from remaining paths
 		int randomChosenPath = randomGenerator.nextInt(potentialPaths.size());
 		return potentialPaths.get(randomChosenPath);
 	}
-	
+/*
 	private int gapFinder(LinkedList<Integer> checkPath)
 	{
 		int smallestGap=50;
@@ -149,7 +191,7 @@ public class Mouse extends JPanel{
 			int checkLoc = checkPath.get(i);			//get index of current cell
 			int prevLoc = checkPath.get(i+1);			//get index of next cell in the path
 			LinkedList<Integer> checkAdj = Game.board.getAdjMatrix().get(checkLoc);
-			
+
 			if (checkLoc==prevLoc+1||checkLoc == prevLoc-1)	//if moving left or right
 			{
 				if(checkAdj.contains(checkLoc+20))
@@ -172,32 +214,35 @@ public class Mouse extends JPanel{
 					cellGap++;
 				}
 			}
-			
+
 			if (cellGap<smallestGap)
-				{smallestGap = cellGap;}
+			{smallestGap = cellGap;}
 			//find direction of next movement
 			//check adj list to see how many spots are open not in the direction of movement or backwards (left/right from n cell)
 			//if smaller than smallest gap then update smallest gap value
-			
+
 		}
 		return smallestGap;
 	}
+	*/
 	public void move(int xCoord, int yCoord) {
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 	}
-	
+
 	protected static ImageIcon createImageIcon(String path) {
 		java.net.URL imageURL = MousePic.class.getResource(path);
 
-        if (imageURL == null) {
-            System.err.println("Resource not found: " + path);
-            return null;
-        } else {
-            return new ImageIcon(imageURL);
-        }
+		if (imageURL == null) {
+			System.err.println("Resource not found: " + path);
+			return null;
+		} else {
+			return new ImageIcon(imageURL);
+		}
 	}
 
+	public int xFromIndex(int tempIndex){return tempIndex/20;}
+	public int yFromIndex(int tempIndex){return tempIndex%20;}
 	public int getxCoord() {return xCoord;}
 	public int getyCoord() {return yCoord;}
 	public void setxCoord(int xCoord) {this.xCoord = xCoord;}

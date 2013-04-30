@@ -20,7 +20,6 @@ public class MouseTest {
 	@Before
 	public void setup() {
 		testGame = new Game();
-		
 	//	b = new Board(); //should be automatically created when game constructor called
 	}
 	
@@ -35,8 +34,8 @@ public class MouseTest {
 	@Test
 	public void testMouseInitialization()
 	{
-		assertEquals(testGame.mouse.getxCoord(),10); //don't know board size might need to be changed (!!!!!!)
-		assertEquals(testGame.mouse.getyCoord(),10);  
+		assertEquals(testGame.board.mouse.getxCoord(),10); //don't know board size might need to be changed (!!!!!!)
+		assertEquals(testGame.board.mouse.getyCoord(),10);  
 	}
 	
 	@Test
@@ -138,17 +137,17 @@ public class MouseTest {
 	@Test
 	public void testMouseMovement()
 	{
-		testGame.mouse.setxCoord(50);
-		testGame.mouse.setyCoord(50);
-		testGame.mouse.move(49,50);
+		testGame.board.mouse.setxCoord(50);
+		testGame.board.mouse.setyCoord(50);
+		testGame.board.mouse.move(49,50);
 		assertTrue(
-				(testGame.mouse.getxCoord()==49 && testGame.mouse.getyCoord()==50)
+				(testGame.board.mouse.getxCoord()==49 && testGame.board.mouse.getyCoord()==50)
 				||
-				(testGame.mouse.getxCoord()==51 && testGame.mouse.getyCoord()==50)
+				(testGame.board.mouse.getxCoord()==51 && testGame.board.mouse.getyCoord()==50)
 				||
-				(testGame.mouse.getxCoord()==50 && testGame.mouse.getyCoord()==49)
+				(testGame.board.mouse.getxCoord()==50 && testGame.board.mouse.getyCoord()==49)
 				||
-				(testGame.mouse.getxCoord()==50 && testGame.mouse.getyCoord()==51)
+				(testGame.board.mouse.getxCoord()==50 && testGame.board.mouse.getyCoord()==51)
 				);
 	}
 	

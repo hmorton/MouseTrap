@@ -12,13 +12,10 @@ public class Game extends JFrame{
 	private int score;
 
 	public Game(){
-		// TODO Auto-generated constructor stub
-		
+		board  = new Board();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Mouse Trap!!");
 		setSize(620,640);
-		
-		board  = new Board();
 		//mouse = new Mouse(board.getXsize()/2, board.getYsize()/2);
 		
 		add(board,BorderLayout.CENTER);

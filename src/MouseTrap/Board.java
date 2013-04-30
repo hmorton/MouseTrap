@@ -23,14 +23,11 @@ public class Board extends JPanel {
 	
 	
 	public Board() {
-		
 		mouse = new Mouse();
-		
 		boardCells = new ArrayList<BoardCell>();
 		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
 		setUpBoardCells();
 		calcAdj();
-		
 		addMouseListener(new BoardListener());
 	}
 	
@@ -112,14 +109,12 @@ public class Board extends JPanel {
 				if(b.containsClick(e.getX(), e.getY()) ){
 					if(b.getxCoord()!= mouse.getxCoord() || b.getyCoord() != mouse.getyCoord()){
 						b.setBlocked(true);
-						//mouse.pathFinder();
-
+						calcAdj();
+						mouse.pathFinder();
+						repaint();
 					}
-
 				}
 			}
-			repaint();
-
 		}
 
 		@Override
