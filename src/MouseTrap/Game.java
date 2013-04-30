@@ -39,14 +39,6 @@ public class Game extends JFrame{
 		}
 	}
 	
-	public void humanTurn() {
-		//get input
-		//call setTileBlocked
-	}
-	
-	public void mouseTurn() {
-		//mouse.move();
-	}
 	
 	public void pathFinder() {
 		if(board.mouse.getxCoord() == 0||board.mouse.getyCoord() == 0||board.mouse.getxCoord() == Board.getXsize()-1||board.mouse.getyCoord() == Board.getYsize()-1)
@@ -60,9 +52,6 @@ public class Game extends JFrame{
 			} else
 				board.mouse.selectLocation();
 		}
-	}
-	
-	public void decrementScore() {
 	}
 	
 	public void setTileBlocked(int index) {

@@ -23,7 +23,6 @@ public class Mouse extends JPanel{
 	LinkedList<LinkedList<Integer>> potentialPaths;
 
 	public Mouse() {//Jpanel for mouse picture
-		//	path = new ArrayList<BoardCell>();
 		potentialPaths = new LinkedList<LinkedList<Integer>>();
 		xCoord = 10-1;
 		yCoord = 10-1;
@@ -47,7 +46,7 @@ public class Mouse extends JPanel{
 	public void draw(Graphics g) {
 		g.drawImage(pic, xCoord*30-10, yCoord*30-10,  this);
 	}
-	
+
 	public void selectLocation(){
 		Game.board.calcAdj();
 		LinkedList<Integer> possibleMoves = Game.board.getAdjMatrix().get(calcIndex(xCoord, yCoord));
@@ -57,18 +56,15 @@ public class Mouse extends JPanel{
 		dfLeft = (int)Math.pow((20 - xCoord),5) + dfBot;
 		dfRight = (int)Math.pow((20 -(Game.board.getXsize() - xCoord)),5) +dfLeft;
 		Random randNums = new Random();
-	//	System.out.println("dfRight is: " + dfRight);
 		int randInt = randNums.nextInt(dfRight);
 		boolean done = false;
 		if(randInt < dfTop){
-	//		System.out.println("I want to move up!" + (xCoord) + " " + (yCoord-1));
 			if(!Game.board.getBoardCells().get(calcIndex(xCoord, yCoord-1)).getBlocked()){
 				done = true;
 				move(xCoord,yCoord-1);
 			}
 		}
 		else if(randInt < dfBot){
-//			System.out.println("I want to move down!" + (xCoord) + " " + (yCoord+1));
 			if(!Game.board.getBoardCells().get(calcIndex(xCoord, yCoord+1)).getBlocked()){
 				done = true;
 				move(xCoord,yCoord+1);
@@ -77,7 +73,6 @@ public class Mouse extends JPanel{
 
 		}
 		else if (randInt < dfLeft){
-	//		System.out.println("I want to move left!" + (xCoord-1) + " " + (yCoord));
 			if(!Game.board.getBoardCells().get(calcIndex(xCoord - 1, yCoord)).getBlocked()){
 				done = true;
 				move(xCoord - 1,yCoord);
@@ -87,7 +82,6 @@ public class Mouse extends JPanel{
 
 		}
 		else if (randInt < dfRight){
-	//		System.out.println("I want to move right!" + (xCoord+1) + " " + (yCoord));
 			if(!Game.board.getBoardCells().get(calcIndex(xCoord+ 1, yCoord)).getBlocked()){
 				done = true;
 				move(xCoord + 1,yCoord);
@@ -105,8 +99,8 @@ public class Mouse extends JPanel{
 
 	public void move(int xCoord, int yCoord) {
 		if(!Game.board.getBoardCells().get(calcIndex(xCoord, yCoord)).getBlocked()) {
-		this.xCoord = xCoord;
-		this.yCoord = yCoord;
+			this.xCoord = xCoord;
+			this.yCoord = yCoord;
 		}
 	}
 

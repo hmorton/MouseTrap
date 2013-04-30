@@ -19,10 +19,9 @@ public class Board extends JPanel {
 	private ArrayList<BoardCell> boardCells;
 	private Map<Integer, LinkedList<Integer>> adjMatrix;
 	private Game game;
-	//public MousePic mouse;
 	public Mouse mouse;
-	
-	
+
+
 	public Board() {
 		mouse = new Mouse();
 		boardCells = new ArrayList<BoardCell>();
@@ -31,7 +30,7 @@ public class Board extends JPanel {
 		calcAdj();
 		addMouseListener(new BoardListener());
 	}
-	
+
 	public Board(Game game) {
 		this.game = game;
 		mouse = new Mouse();
@@ -41,7 +40,7 @@ public class Board extends JPanel {
 		calcAdj();
 		addMouseListener(new BoardListener());
 	}
-	
+
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -49,29 +48,25 @@ public class Board extends JPanel {
 		{
 			cell.draw(g);
 		}
-		
+
 		mouse.draw(g);
-//		mouse.setX(50);
-//		mouse.setY(60);
+
 		repaint();
 		mouse.revalidate();
-		
-		
-//		for(Player value: players.values()){
-//			value.draw(g);
-//		}			
+
+
 	}
-	
+
 	public void setUpBoardCells() {
 		for(int i = 0; i < XSIZE * YSIZE; i++) {
 			boardCells.add(new BoardCell(i));
 		}
 	}
-	
+
 	public int calcIndex(int xCoord, int yCoord) {
 		return yCoord*20 + xCoord;
 	}
-	
+
 	public void calcAdj() {
 		adjMatrix = new HashMap<Integer, LinkedList<Integer>>();
 		for(BoardCell b : boardCells){
@@ -91,7 +86,7 @@ public class Board extends JPanel {
 			}
 			if (b.getxCoord()+1 < XSIZE) {
 				int xPlus1 = calcIndex(b.getxCoord()+1, b.getyCoord());
-			//	System.out.println("xPlus1 is: " + xPlus1);
+				//	System.out.println("xPlus1 is: " + xPlus1);
 				if(!boardCells.get(xPlus1).getBlocked()){
 					tempList.add(xPlus1);
 				}
@@ -118,7 +113,6 @@ public class Board extends JPanel {
 		public void mouseClicked(MouseEvent e) {	
 			for(BoardCell b: boardCells){
 				if(b.containsClick(e.getX(), e.getY()) ){
-			//		System.out.println("you clicked on: " + b.getxCoord() + " " + b.getyCoord());
 					if((b.getxCoord()!= mouse.getxCoord() || b.getyCoord() != mouse.getyCoord()) && !b.getBlocked()){
 						b.setBlocked(true);
 						calcAdj();
@@ -146,4 +140,4 @@ public class Board extends JPanel {
 	}
 }
 
-	
+
