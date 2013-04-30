@@ -17,8 +17,8 @@ public class BoardCell {
 	
 	public BoardCell(int index) {
 		this.index = index;
-		xCoord = index/20;
-		yCoord = index%20;
+		xCoord = index%20;
+		yCoord = index/20;
 	}
 
 	void draw(Graphics g) {

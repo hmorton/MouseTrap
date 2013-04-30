@@ -16,18 +16,16 @@ public class Game extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Mouse Trap!!");
 		setSize(620,640);
-		//mouse = new Mouse(board.getXsize()/2, board.getYsize()/2);
 		
 		add(board,BorderLayout.CENTER);
-//		validate();
-//		repaint();
-//		setMinimumSize(new Dimension(620, 640));
-//		pack();
-		
 	}
 	
-	public void endGame() {
-		
+	public static void endGame(boolean win) {
+		if(win) {
+			
+		} else {
+			
+		}
 	}
 	
 	public void humanTurn() {

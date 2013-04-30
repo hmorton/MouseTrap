@@ -107,7 +107,8 @@ public class Board extends JPanel {
 		public void mouseClicked(MouseEvent e) {	
 			for(BoardCell b: boardCells){
 				if(b.containsClick(e.getX(), e.getY()) ){
-					if(b.getxCoord()!= mouse.getxCoord() || b.getyCoord() != mouse.getyCoord()){
+					System.out.println("you clicked on: " + b.getxCoord() + " " + b.getyCoord());
+					if((b.getxCoord()!= mouse.getxCoord() || b.getyCoord() != mouse.getyCoord()) && !b.getBlocked()){
 						b.setBlocked(true);
 						calcAdj();
 						mouse.pathFinder();
