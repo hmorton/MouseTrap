@@ -54,7 +54,6 @@ public class Board extends JPanel {
 		repaint();
 		mouse.revalidate();
 
-
 	}
 
 	public void setUpBoardCells() {

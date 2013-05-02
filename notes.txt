@@ -1,0 +1,94 @@
+commit 6cea3de7f6b7e75eb56183299d91313e5dedb854
+Author: unknown <ncoats@.adit.mines.edu>
+Date:   Mon Apr 29 21:10:14 2013 -0600
+
+    cleaned up code a bit
+
+commit 4570393a9d9bbfee8180ad9eedbba98fbca89294
+Author: unknown <ncoats@.adit.mines.edu>
+Date:   Mon Apr 29 21:03:58 2013 -0600
+
+    everything is now done
+
+commit d7c3019a05e5b5ed09eee458b3f6d80d0588872e
+Author: unknown <gsowash@.adit.mines.edu>
+Date:   Mon Apr 29 20:29:56 2013 -0600
+
+    game now working, only thing missing is winning, and potentially a score
+
+commit c71b40570f45cedaca8aa94aeb86d4f3a650e79c
+Author: Geoffrey Sowash <gsowashiii@gmail.com>
+Date:   Mon Apr 29 18:16:28 2013 -0600
+
+    Upload for mouse AI tracing to find prob
+
+commit 555c3cd94bc76acc692012a65b2d4c045886322f
+Author: hmorton <hmorton@github.com>
+Date:   Mon Apr 29 12:14:08 2013 -0600
+
+    mouse and blocked cells show. nonsense mouse AI
+
+commit fbfb54c9140672536b6d49faa334a02d4df01f6e
+Author: Geoffrey Sowash <gsowashiii@gmail.com>
+Date:   Thu Apr 25 12:13:57 2013 -0600
+
+    made the jframe pop up!
+
+commit a0fab19c5862e86a7fde02816c439e3d0f271353
+Author: unknown <ncoats@.adit.mines.edu>
+Date:   Wed Apr 24 20:59:31 2013 -0600
+
+    all tests now passing
+
+commit b6ed924cd027bdcc40c838b2d7fe7152f1710a32
+Author: unknown <ncoats@.adit.mines.edu>
+Date:   Wed Apr 24 20:52:43 2013 -0600
+
+    mouse initialization test is now working
+
+commit f809a7f112d74e8b243b2178d75d9d7be8a648db
+Author: unknown <ncoats@.adit.mines.edu>
+Date:   Wed Apr 24 20:49:33 2013 -0600
+
+    the tests for adjacencies is now working
+
+commit 9c014eae0f540b4f010c5a1c944557813122bf7a
+Author: unknown <ncoats@.adit.mines.edu>
+Date:   Wed Apr 24 20:13:37 2013 -0600
+
+    testSetBlock and testBoardSixe are now passing
+
+commit e4d679092a5a9424fad916ce04b6d65bfb99c7f0
+Author: Geoffrey Sowash <gsowashiii@gmail.com>
+Date:   Thu Apr 18 21:01:08 2013 -0600
+
+    Failing Tests
+    
+    1) Altered gitignore for easier loading into projects
+    2) Removed separate board initialization in tests
+    3) Added tests for mouse movement, mouse initialization, board size, and
+    setting blocked tiles
+
+commit 683aa831a7b6ff76afe89f07aa7678142d69520b
+Author: unknown <ncoats@.adit.mines.edu>
+Date:   Wed Apr 17 20:41:36 2013 -0600
+
+    added in tests, they are currently failing
+
+commit b5caac383e0c117e5340a4d3a07f3e0e722244e2
+Author: unknown <ncoats@.adit.mines.edu>
+Date:   Wed Apr 17 19:49:16 2013 -0600
+
+    added structure implied from UML diagram
+
+commit 600877a3b0e27b75087c81eb06894e6a461a38c8
+Author: Hope <hmorton@github.com>
+Date:   Tue Apr 16 12:07:46 2013 -0600
+
+    forgot to save
+
+commit 20a439f89f16db3d5f4a0f8f98ea8edef49b5b5c
+Author: Hope <hmorton@github.com>
+Date:   Tue Apr 16 12:03:55 2013 -0600
+
+    intitial commit

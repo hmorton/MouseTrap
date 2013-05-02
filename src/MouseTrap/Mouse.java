@@ -48,7 +48,7 @@ public class Mouse extends JPanel{
 	}
 
 	public void selectLocation(){
-		Game.board.calcAdj();
+//		Game.board.calcAdj();
 		LinkedList<Integer> possibleMoves = Game.board.getAdjMatrix().get(calcIndex(xCoord, yCoord));
 		int dfTop, dfBot, dfLeft, dfRight;
 		dfTop = (int)Math.pow((20 - yCoord),5);
